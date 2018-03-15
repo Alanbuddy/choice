@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>choice</title>
+    <script>
+        document.documentElement.style.fontSize = document.documentElement.clientWidth / 7.5 + 'px';
+    </script>
+    <script src="jquery-3.2.1.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: "Microsoft YaHei", Helvetica, STHeiTi, sans-serif;
+        font-size: 10px;
+        -webkit-overflow-scrolling: touch;
+      }
+      .wrapper {
+        width: 100%;
+      }
+      .box-div {
+        margin: 0.16rem;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-justify-content: space-between;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .box {
+        width: 0.62rem;
+        height: 0.62rem;
+        margin-bottom: 0.08rem;
+        border: 1px solid #aaa;
+        line-height: 0.62rem;
+        text-align: center;
+      }
+      .red {
+        background: #FF0000;
+      }
+      .btn {
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        height: 0.96rem;
+        background: #ff0000;
+        border: 0;
+        outline: 0;
+        color: #fff;
+        font-size: 1.6em;
+      }
+      .anwser {
+        margin: 0.16rem;
+        font-size: 1.4em;
+      }
+      @media screen and (max-width: 320px) {
+        body {
+          font-size: 9px;
+        }
+      }
+      @media screen and (min-width: 320px) and (max-width: 414px) {
+        body {
+          font-size: 10px;
+        }
+      }
+      @media screen and (min-width: 414px) and (max-width: 639px) {
+        body {
+          font-size: 12px;
+        }
+      }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="box-div"></div>
+  <p class="anwser">
+    当座位有五万的时候，浏览器的加载速度会变慢，比较占内存，由于是子元素绑定事件，也会产生少量无法回收的内存，可以把事件注册上提到父节点上。
+  </p>
+  <input  class="btn" type="button" value="提交" id="confirm" onclick="getInfo()">
+</div>
+
+
+<script>
+
+  function loadBox(row, num){
+    for(var i=1;i<=row;i++){
+      for(var j=1;j<=num;j++){
+        var temp = `<div class="box" data-status= 0 data-num=` + i + "-" + j+ `>` + j + `</div>`;
+        var box_div = $(".box-div");
+        box_div.append($(temp));
+      }
+    }
+  };
+
+  loadBox(9, 10);
+
+  $(document).on('click', '.box', function(){
+    var status = $(this).attr("data-status");
+    if(status == 0){
+      $(this).addClass('red');
+      $(this).attr("data-status", 1);
+    }else {
+      $(this).removeClass('red');
+      $(this).attr("data-status", 0);
+    }
+  })
+
+  function getInfo(){
+    var dataArr = [];
+    $(".box").each(function(){
+      var status = $(this).attr("data-status");
+      var dataNum = $(this).attr("data-num");
+      if(status == 1){
+        dataArr.push(dataNum);
+      }
+    })
+    console.log(dataArr);
+  };
+
+  
+</script>
+
+</body>
+</html>
